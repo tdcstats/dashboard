@@ -66,8 +66,6 @@ function calculatePlayerStats(players, games) {
     // initialize
     if (!mostActive) {
       mostActive = player;
-      lucky = player;
-      unlucky = player;
       continue;
     }
 
@@ -78,6 +76,11 @@ function calculatePlayerStats(players, games) {
 
     // only use players that have played more games than the average
     if (playerGames >= Math.round(games / Object.keys(players).length)) {
+      if (!lucky || !unlucky) {
+        lucky = player;
+        unlucky = player;
+      }
+      
       let luckyGames = players[lucky].wins + players[lucky].losses; // total games of lucky leader
       let unluckyGames = players[unlucky].wins + players[unlucky].losses; // total games of unlucky leader
       let playerWin = players[player].wins / playerGames; // win % of current player
